@@ -6,10 +6,31 @@
   <title>Document</title>
 </head>
 <body>
+  <div id="status">
+
+  </div> Status
 
 </body>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-polyfill/6.26.0/polyfill.min.js">
 </script>
 <script src="https://unpkg.com/@adonisjs/websocket-client@1.0.9/dist/Ws.browser.js">
+</script>
+<script>
+  let ws = adonis.Ws('ws://localhost:3333').connect();
+
+  const status = document.querySelector('div#status')
+
+  ws.on('open',()=>{
+    status.classList.add('online')
+    console.log('online')
+  })
+  ws.on('error',()=>{
+    status.classList.remove('online')
+    console.log('error')
+  })
+  ws.on('close',()=>{
+    status.classList.remove('online')
+    console.log('offline')
+  })
 </script>
 </html>
